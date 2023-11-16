@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/QSS/widget.qss</file>
+        <file>resource/image/imageLogo.png</file>
+        <file>resource/image/clearlist_hover.png</file>
+        <file>resource/image/clearlist_normal.png</file>
+        <file>resource/image/close_hover.png</file>
+        <file>resource/image/close_normal.png</file>
+        <file>resource/image/config_hover.png</file>
+        <file>resource/image/config_normal.png</file>
+        <file>resource/image/delete_hover.png</file>
+        <file>resource/image/delete_normal.png</file>
+        <file>resource/image/disfullscreen_hover.png</file>
+        <file>resource/image/disfullscreen_normal.png</file>
+        <file>resource/image/filedir_hover.png</file>
+        <file>resource/image/filedir_normal.png</file>
+        <file>resource/image/fullscreen_hover.png</file>
+        <file>resource/image/fullscreen_normal.png</file>
+        <file>resource/image/hideside_hover.png</file>
+        <file>resource/image/hideside_normal.png</file>
+        <file>resource/image/max_hover.png</file>
+        <file>resource/image/max_normal.png</file>
+        <file>resource/image/max_resume_hover.png</file>
+        <file>resource/image/max_resume_normal.png</file>
+        <file>resource/image/min_hover.png</file>
+        <file>resource/image/min_normal.png</file>
+        <file>resource/image/next_hover.png</file>
+        <file>resource/image/next_normal.png</file>
+        <file>resource/image/novolume_hover.png</file>
+        <file>resource/image/novolume_normal.png</file>
+        <file>resource/image/pause_hover.png</file>
+        <file>resource/image/pause_normal.png</file>
+        <file>resource/image/play_hover.png</file>
+        <file>resource/image/play_normal.png</file>
+        <file>resource/image/player_logo.png</file>
+        <file>resource/image/showside_hover.png</file>
+        <file>resource/image/showside_normal.png</file>
+        <file>resource/image/video_image.png</file>
+        <file>resource/image/volume_hover.png</file>
+        <file>resource/image/volume_normal.png</file>
+        <file>resource/image/shadow_playmode_widget.png</file>
+    </qresource>
+</RCC>
