@@ -35,7 +35,7 @@ private slots:
 
     void selectionChangedSlot(QListWidgetItem* current,QListWidgetItem* previous);
 
-    void itemEnteredSlot(QListWidgetItem* item);
+    void itemEnteredSlot(QListWidgetItem *item);
 private:
     PlayListWidgetItem* m_lastHoverItem;
 };

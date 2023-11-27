@@ -27,6 +27,12 @@ public:
     inline uint32_t getPixelH()const{
         return  m_pixelH;
     }
+    inline void setToPureBlack(){
+        int sizeY=m_pixelH*m_pixelW;
+        memset(m_buffer,16,sizeY);
+        memset(m_buffer+sizeY,128,sizeY>>1);
+        memset(m_buffer+sizeY*3/2,128,sizeY>>1);
+    }
 private:
     void create(uint8_t* buffer,uint32_t pixelW,uint32_t pixelH){
         m_pixelH=pixelH;

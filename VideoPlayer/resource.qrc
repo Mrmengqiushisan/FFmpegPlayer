@@ -39,5 +39,6 @@
         <file>resource/image/volume_hover.png</file>
         <file>resource/image/volume_normal.png</file>
         <file>resource/image/shadow_playmode_widget.png</file>
+        <file>resource/QSS/mediaplayer.qss</file>
     </qresource>
 </RCC>

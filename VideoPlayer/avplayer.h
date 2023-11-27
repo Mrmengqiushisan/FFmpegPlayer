@@ -8,6 +8,8 @@
 #include "clock.h"
 #include "c11threadpool.h"
 #include "vframe.h"
+#include "sonic.h"
+
 extern "C"{
 #include <libswscale/swscale.h>
 #include <libavdevice/avdevice.h>
@@ -37,7 +39,9 @@ public:
     int Play(const QString& url);
 
     void pause(bool isPause);
-
+    
+    AVTool::MediaInfo* detectMediaInfo(const QString& url);
+    
     void clearPlayer();
 
     AVPlayer::PlayState playState();
@@ -60,8 +64,11 @@ public:
         m_decoder->seekTo(time_s,time_s-(int32_t)m_audioClock.getClock());
     }
 
-    uint32_t avDuration(){
+    inline  uint32_t avDuration(){
         return m_duration;
+    }
+    inline void setPlaySpeed(float speed){
+        m_playSpeed=speed;
     }
 signals:
     void AVDurationChanged(unsigned int duration);
@@ -121,10 +128,11 @@ private:
     //记录音视频帧最新播放帧的时间戳 用于同步
     int     m_pause;    //暂停标志
     int     m_exit;     //终止标志
+    float   m_playSpeed;//播放速度
     double  m_frameTimer;
     double  m_delay;    //延时时间
     double  m_pauseTime;//记录暂停前的时间
-
+    sonicStream m_sonicStream;
 };
 
 #endif // AVPLAYER_H

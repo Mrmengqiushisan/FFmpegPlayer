@@ -1,5 +1,5 @@
 #include "decoder.h"
-
+#include<QImage>
 #include<QVector>
 #include<mutex>
 #include<condition_variable>
@@ -23,6 +23,138 @@ Decoder::Decoder():
 
 Decoder::~Decoder(){
     exit();
+}
+
+AVTool::MediaInfo *Decoder::detectMediaInfo(const QString &url)
+{
+    int ret{0};
+    int duration{0};
+    //初始化FFmpeg上下文
+    AVFormatContext* fmtCtx=avformat_alloc_context();
+    if(!fmtCtx)return  nullptr;
+    //创建字典对象 这可以添加键值对内容 去告诉fmtctx在打开音视频时应该需要做那些事情
+    AVDictionary* formatOpts=nullptr;
+    //这个键值对告诉fmtctx的探测大小为32字节
+    av_dict_set(&formatOpts,"probesize","32",0);
+    //打开url 可以解析得到一些内容
+    ret=avformat_open_input(&fmtCtx,url.toUtf8().constData(),nullptr,nullptr);
+    if(ret<0){
+        av_strerror(ret,m_errBuf,ERRBUF_SIZE);
+        qDebug() << "avformat_open_input error:" << m_errBuf;
+        avformat_free_context(fmtCtx);
+        av_dict_free(&formatOpts);
+        return  nullptr;
+    }
+    //获取流对象
+    ret=avformat_find_stream_info(fmtCtx,nullptr);
+    if(ret<0){
+        av_strerror(ret,m_errBuf,ERRBUF_SIZE);
+        qDebug() << "avformat_find_stream_info error:" << m_errBuf;
+        avformat_free_context(fmtCtx);
+        av_dict_free(&formatOpts);
+        return  nullptr;
+    }
+    //记录流时长
+    AVRational q{1,AV_TIME_BASE};
+    duration=(uint32_t)(fmtCtx->duration*av_q2d(q));
+    av_dict_free(&formatOpts);
+    int videoIndex=av_find_best_stream(fmtCtx,AVMEDIA_TYPE_VIDEO,-1,-1,nullptr,0);
+    if (videoIndex < 0) {
+        qDebug() << "no video stream!";
+        return Q_NULLPTR;
+    }
+    //视频解码初始化
+    //获取编解码器参数
+    AVCodecParameters* videoCodecPar=fmtCtx->streams[videoIndex]->codecpar;
+    if (!videoCodecPar) {
+        qDebug() << "videocodecpar is nullptr!";
+        return Q_NULLPTR;
+    }
+    //构造编解码器上下文
+    AVCodecContext* codecCtx=avcodec_alloc_context3(nullptr);
+    //将参数设置到编解码器中
+    ret=avcodec_parameters_to_context(codecCtx,videoCodecPar);
+    if (ret < 0) {
+        av_strerror(ret, m_errBuf, sizeof(m_errBuf));
+        qDebug() << "error info_avcodec_parameters_to_context:" << m_errBuf;
+        return Q_NULLPTR;
+    }
+    //找到解码器
+    const AVCodec* videoCodec=avcodec_find_decoder(codecCtx->codec_id);
+    if (!videoCodec) {
+        qDebug() << "avcodec_find_decoder failed!";
+        return Q_NULLPTR;
+    }
+    codecCtx->codec_id=videoCodec->id;
+    //根据编解码器上下文打开解码器
+    ret=avcodec_open2(codecCtx,videoCodec,nullptr);
+    if (ret < 0) {
+        av_strerror(ret, m_errBuf, sizeof(m_errBuf));
+        qDebug() << "error info_avcodec_open2:" << m_errBuf;
+        return Q_NULLPTR;
+    }
+    //开始解码
+    AVPacket* pkt=av_packet_alloc();
+    AVFrame* frame=av_frame_alloc();
+    bool falg=false;
+    while(1){
+        //首先获取包数据
+        ret=av_read_frame(fmtCtx,pkt);
+        if(ret!=0){
+            return Q_NULLPTR;
+        }
+        if(pkt->stream_index==videoIndex){
+            //将压缩包数据发送给解码器
+            ret=avcodec_send_packet(codecCtx,pkt);
+            av_packet_unref(pkt);
+            if(ret<0||ret==AVERROR(EAGAIN)||ret==AVERROR_EOF){
+                av_strerror(ret, m_errBuf, sizeof(m_errBuf));
+                qDebug() << "avcodec_send_packet error:" << m_errBuf;
+                continue;
+            }
+            while(1){
+                ret=avcodec_receive_frame(codecCtx,frame);
+                if(ret==0){
+                    falg=true;
+                    break;
+                }else if(ret==AVERROR(EAGAIN)){
+                    break;
+                }else{
+                    return  Q_NULLPTR;
+                }
+            }
+            if(falg)break;
+        }else{
+            av_packet_unref(pkt);
+        }
+    }
+    //走到这说明已经拿到了frame
+    int imageWidth=videoCodecPar->width;
+    int imageHeight=videoCodecPar->height;
+    enum  AVPixelFormat dstPixFmt=AV_PIX_FMT_RGB24;
+    int swsFlags=SWS_BICUBIC;
+    uint8_t* pixels[4];
+    int pitch[4];
+    //分配存储转换后帧数据的buffer内存
+    int bufsize=av_image_get_buffer_size(dstPixFmt,imageWidth,imageHeight,1);
+    uint8_t* buffer=(uint8_t*)av_malloc(bufsize*sizeof(uint8_t));
+    av_image_fill_arrays(pixels,pitch,buffer,dstPixFmt,imageWidth,imageHeight,1);
+    //用于设置图像大小和像素转换的上下文
+    SwsContext* swsCtx=sws_getCachedContext(nullptr,frame->width,frame->height,(enum AVPixelFormat)frame->format,
+                                            imageWidth,imageHeight,dstPixFmt,swsFlags,nullptr,nullptr,nullptr);
+    if(swsCtx){
+        //该函数用于做实际的转换
+        sws_scale(swsCtx,frame->data,frame->linesize,0,frame->height,pixels,pitch);
+    }
+    av_frame_unref(frame);
+    AVTool::MediaInfo* info=new AVTool::MediaInfo();
+    info->duration=duration;
+    info->tipImg=QImage(pixels[0],imageWidth,imageHeight,pitch[0],QImage::Format_RGB888);
+    av_packet_free(&pkt);
+    av_frame_free(&frame);
+    avformat_close_input(&fmtCtx);
+    avcodec_free_context(&codecCtx);
+    return info;
 }
 
 void Decoder::seekTo(int32_t target, int32_t seekRel){
@@ -110,6 +242,7 @@ int Decoder::decode(const QString &url){
     if(ret<0){
         av_strerror(ret,m_errBuf,ERRBUF_SIZE);
         qDebug()<<"avformat_open_input :"<<m_errBuf;
+        av_dict_free(&formatOpts);
         avformat_free_context(m_fmtCtx);
         return 0;
     }

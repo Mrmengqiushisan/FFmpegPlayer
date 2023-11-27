@@ -24,21 +24,34 @@ bool AVPtsSlider::event(QEvent *e){
     if(e->type()==QEvent::Enter){
         this->setStyleSheet(QString("QSlider::sub-page:horizontal#slider_AVPts{"
                                     "background:rgb(255,92,56);"
-                                    "margin-top:6px;"
-                                    "margin-bottom:6px;}"
+                                    "margin-top:5px;"
+                                    "margin-bottom:5px;}"
                                     "QSlider::add-page:horizontal#slider_AVPts{"
                                     "background:rgb(83,83,83);"
-                                    "margin-top:6px;"
-                                    "margin-bottom:6px;}"));
+                                    "margin-top:5px;"
+                                    "margin-bottom:5px;}"
+                                    "QSlider::handle:horizontal#slider_AVPts{"
+                                     "background-color:rgb(255, 79, 74);"
+                                     "border-radius:6px;"
+                                     "border:none;"
+                                     "width:18px;"
+                                     "margin-top:0px;"
+                                     "margin-bottom:0px;}"));
     }else if(e->type()==QEvent::Leave){
         this->setStyleSheet(QString("QSlider::sub-page:horizontal#slider_AVPts{"
                                     "background:rgb(255,92,56);"
-                                    "margin-top:9px;"
-                                    "margin-bottom:9px;}"
+                                    "margin-top:7px;"
+                                    "margin-bottom:7px;}"
                                     "QSlider::add-page:horizontal#slider_AVPts{"
                                     "background:rgb(83,83,83);"
-                                    "margin-top:9px;"
-                                    "margin-bottom:9px;}"));
+                                    "margin-top:7px;"
+                                    "margin-bottom:7px;}"
+                                    "QSlider::handle:horizontal#slider_AVPts{"
+                                    "border-radius:0px;"
+                                    "border:none;"
+                                    "width:0px;"
+                                    "margin-top:7px;"
+                                    "margin-bottom:7px;}"));
     }else if(e->type()==QEvent::Resize){
         setMaximum(this->width()-1);
         setPtsPercent(m_percent);

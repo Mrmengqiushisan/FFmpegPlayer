@@ -5,15 +5,21 @@
 #include<condition_variable>
 #include<QVector>
 #include<QDebug>
+#include<QImage>
 #define ERRBUF_SIZE 256
 extern "C"{
+#include<libswscale/swscale.h>
+#include<libavutil/imgutils.h>
 #include<libavcodec/avcodec.h>
 #include<libavformat/avformat.h>
 }
 
 QT_BEGIN_NAMESPACE
 namespace AVTool {
-
+typedef  struct MediaInfo{
+    int duration;
+    QImage tipImg;
+} MediaInfo;
 class Decoder{
 public:
     typedef struct MyFrame{
@@ -50,6 +56,8 @@ public:
     }PKTDECODER;
     Decoder();
     ~Decoder();
+    //成功探测到媒体信息返回类型实例，否则返回nullptr
+    AVTool::MediaInfo* detectMediaInfo(const QString& url);
     void seekTo(int32_t target,int32_t seekRel);
     int  getAFrame(AVFrame* frame);
     int  getRemainingVFrame();

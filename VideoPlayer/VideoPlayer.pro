@@ -25,12 +25,16 @@ SOURCES += \
     c11threadpool.cpp \
     configdialog.cpp \
     decoder.cpp \
+    dragablewidget.cpp \
     main.cpp \
     VideoPlayer.cpp \
     mediaplayer.cpp \
     openglwidget.cpp \
     playlistwidget.cpp \
-    playspeeddialog.cpp
+    playspeeddialog.cpp \
+    sonic.c \
+    volumedialog.cpp \
+    volumesliderbar.cpp
 
 HEADERS += \
     VideoPlayer.h \
@@ -40,11 +44,15 @@ HEADERS += \
     clock.h \
     configdialog.h \
     decoder.h \
+    dragablewidget.h \
     mediaplayer.h \
     openglwidget.h \
     playlistwidget.h \
     playspeeddialog.h \
-    vframe.h
+    sonic.h \
+    vframe.h \
+    volumedialog.h \
+    volumesliderbar.h
 
 FORMS += \
     VideoPlayerget.ui \

@@ -44,7 +44,9 @@ const char* fshadersrc=GET_GLSTR(
             }
 );
 
-OpenGLWidget::OpenGLWidget(QWidget *parent):QOpenGLWidget(parent),m_isDoubleClick(0){
+OpenGLWidget::OpenGLWidget(QWidget *parent):QOpenGLWidget(parent),m_isDoubleClick(0),
+m_scaleRate(ScaleRate::RATE_ORIGIN){
+    setMouseTracking(true);
     connect(&m_timer,&QTimer::timeout,[this](){
         if(!this->m_isDoubleClick)
             emit this->mouseClicked();
@@ -62,6 +64,17 @@ OpenGLWidget::~OpenGLWidget()
     textureU->destroy();
     textureV->destroy();
     doneCurrent();
+}
+
+void OpenGLWidget::resetFrame()
+{
+   m_frame->setToPureBlack();
+   update();
+}
+
+void OpenGLWidget::setScaleRate(OpenGLWidget::ScaleRate scaleRate)
+{
+    m_scaleRate=scaleRate;
 }
 
 //void OpenGLWidget::slotShowYuv(uchar *ptr, uint width, uint height)
@@ -164,8 +177,46 @@ void OpenGLWidget::initializeGL()
 
 }
 
+void OpenGLWidget::resizeGL(int w, int h)
+{
+    m_curWidth=width();
+    m_curHeight=height();
+}
+
 void OpenGLWidget::paintGL()
 {
+    if(!m_frame)return;
+    uint32_t videoW=m_frame->getPixelW();
+    uint32_t videoH=m_frame->getPixelH();
+    if(m_scaleRate!=ScaleRate::RATE_FULLSCREEN){
+        int rateW,rateH;
+        switch (m_scaleRate) {
+        case ScaleRate::RATE_ORIGIN:
+            rateW=videoW;
+            rateH=videoH;
+            break;
+        case ScaleRate::RATE_4_3:
+            rateW=4;
+            rateH=3;
+            break;
+        case ScaleRate::RATE_16_9:
+            rateW=16;
+            rateH=9;
+            break;
+        }
+        int targetWidth{0},targetHeight{0};
+        if(m_curWidth*rateH>m_curHeight*rateW){
+            targetHeight = m_curHeight;
+            targetWidth = (m_curHeight * rateW) / rateH;
+        }else{
+            targetWidth = m_curWidth;
+            targetHeight = (m_curWidth * rateH) / rateW;
+        }
+        //除2的目的是为了使得界面居中
+        int xOffset=(m_curWidth-targetWidth)/2;
+        int yoffset=(m_curHeight-targetHeight)/2;
+        glViewport(xOffset,yoffset,targetWidth,targetHeight);
+    }
     //激活纹理单元GL_TEXTURE0,系统里面的
     glActiveTexture(GL_TEXTURE0);
 
@@ -199,11 +250,6 @@ void OpenGLWidget::paintGL()
     如果要使用多级渐远纹理，我们必须手动设置所有不同的图像（不断递增第二个参数）。
     或者，直接在生成纹理之后调用glGenerateMipmap。这会为当前绑定的纹理自动生成所有需要的多级渐远纹理。
     */
-
-    if(!m_frame)
-        return;
-    uint32_t videoW=m_frame->getPixelW();
-    uint32_t videoH=m_frame->getPixelH();
 
     //使用内存中的数据创建真正的y分量纹理数据
     glTexImage2D(GL_TEXTURE_2D,0,GL_RED,videoW,videoH,0,GL_RED,GL_UNSIGNED_BYTE,m_frame->getBufY());//m_yPtr 大小是(videoW*videoH)

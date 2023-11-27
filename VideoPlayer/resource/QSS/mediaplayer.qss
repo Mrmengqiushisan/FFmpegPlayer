@@ -1,0 +1,217 @@
+QWidget#widget_side{
+    border:none;
+    background-color:rgb(38,38,43);
+}
+QLabel#label_playing,QLabel#label_playing_fullscreen,QLabel#label_current_time{
+    color:rgb(255,255,255);
+    background-color:transparent;
+    font-family:Microsoft YaHei;
+    font-size:20px;
+}
+
+QLabel#label_logo{
+    color:rgb(255,255,255);
+    border:none;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    font-family: Microsoft YaHei;
+}
+QLabel#label_logo{
+    border-image:url(:/resource/image/video_image.png);
+}
+QLabel#label_pts,QLabel#label_duration,QLabel#label_seperator,QLabel#label_volume{
+    color:rgb(255,255,255);
+    background-color: transparent;
+    font-family: Microsoft YaHei;
+    font-size: 16px;
+}
+QLabel#label_playlist {
+    color:rgb(255,92,56);
+    background-color: transparent;
+    font-family: Microsoft YaHei;
+    font-size: 18px;
+}
+
+Slider::groove:horizontal#slider_AVPts {
+    border:0px;
+}
+QSlider::sub-page:horizontal#slider_AVPts {
+    background:rgb(255,92,56);
+    margin-top:14px;
+    margin-bottom:1px;
+}
+QSlider::add-page:horizontal#slider_AVPts {
+    background:rgb(83,83,83);
+    margin-top:14px;
+    margin-bottom:1px;
+}
+
+QSlider::handle:horizontal#slider_AVPts {
+    border-radius:0px;
+    border:none;
+    width:0px;
+}
+
+QPushButton#btn_playspeed {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    margin-bottom: 1px;
+    font-family: Microsoft YaHei;
+    color: rgb(255,255,255);
+}
+QPushButton:hover#btn_playspeed {
+    color: rgb(255,92,56);
+}
+
+QPushButton#btn_config {
+    border: none;
+    border-image: url(:/resource/image/config_normal.png);
+}
+QPushButton:hover#btn_config {
+    border-image: url(:/resource/image/config_hover.png);
+}
+
+QPushButton#btn_pauseon {
+    border: none;
+    border-image: url(:/resource/image/pause_normal.png);
+}
+QPushButton:hover#btn_pauseon {
+    border-image: url(:/resource/image/pause_hover.png);
+}
+
+QPushButton#btn_next{
+    border:none;
+    border-image:url(:/resource/image/next_normal.png);
+}
+QPushButton:hover#btn_next{
+    border-image:url(:/resource/image/next_hover.png);
+}
+
+QPushButton#btn_fullscreen {
+    border: none;
+    border-image: url(:/resource/image/fullscreen_normal.png);
+}
+QPushButton:hover#btn_fullscreen {
+    border-image: url(:/resource/image/fullscreen_hover.png);
+}
+
+QPushButton#btn_min,QPushButton#btn_min_fullscreen{
+    border: none;
+    border-image: url(:/resource/image/min_normal.png);
+}
+QPushButton:hover#btn_min,QPushButton:hover#btn_min_fullscreen {
+    border-image: url(:/resource/image/min_hover.png);
+}
+
+QPushButton#btn_max{
+    border: none;
+    border-image: url(:/resource/image/max_normal.png);
+}
+QPushButton:hover#btn_max {
+    border-image: url(:/resource/image/max_hover.png);
+}
+QPushButton#btn_close,QPushButton#btn_close_fullscreen {
+    border: none;
+    border-image: url(:/resource/image/close_normal.png);
+}
+QPushButton:hover#btn_close,QPushButton:hover#btn_close_fullscreen {
+    border-image: url(:/resource/image/close_hover.png);
+}
+
+QPushButton#btn_showSlidewidget {
+    border: none;
+    background-color: rgb(0,0,0,100);
+    border-image: url(::/resource/image/showside_normal.png);
+}
+QPushButton:hover#btn_showSlidewidget {
+    border-image: url(:/resource/image/showside_hover.png);
+}
+
+QPushButton#btn_addfile {
+    border: none;
+    border-image: url(:/resource/image/filedir_normal.png);
+}
+QPushButton:hover#btn_addfile {
+    border-image: url(:/resource/image/filedir_hover.png);
+}
+
+QPushButton#btn_clearlist {
+    border: none;
+    border-image: url(:/resource/image/clearlist_normal.png);
+}
+QPushButton:hover#btn_clearlist {
+    border-image: url(:/resource/image/clearlist_hover.png);
+}
+QPushButton#btn_volume {
+    border: none;
+    border-image: url(:/resource/image/volume_normal.png);
+}
+QPushButton:hover#btn_volume {
+    border-image: url(:/resource/image/volume_hover.png);
+}
+
+QListWidget#listWidget_plalylist{
+    border:none;
+    border-top:1px solid rgb(81,81,85);
+    background:transparent;
+    outline:0px;
+}
+QListWidget::Item#listWidget_plalylist{
+    height:80px;
+    margin-top:10px;
+}
+QListWidget::Item:hover#listWidget_plalylist{
+    background:rgb(47,47,55);
+}
+QListWidget::Item:selected#listWidget_plalylist{
+    background-color:rgb(47,47,55);
+}
+QListWidget QScrollBar:vertical {
+    padding-right:5px;
+    width:11px;
+    background:transparent;
+    border:none;
+}
+
+QListWidget QScrollBar::handle:vertical{
+    background:rgb(81,81,85);
+    border-radius:3px;
+}
+QListWidget QScrollBar::handle:vertical:hover{
+    background:rgb(255,92,56);
+}
+QListWidget QScrollBar::add-line:vertical {
+    background:none;
+}
+QListWidget QScrollBar::sub-line:vertical {
+    background:none;
+}
+
+QListWidget QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical {
+    background:transparent;
+}
+QDialog#ConfigDialog QLabel{
+    font-size: 15px;
+    font-family: Microsoft YaHei;
+    color:rgb(255,255,255);
+}
+
+QDialog#ConfigDialog QPushButton {
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    font-family: Microsoft YaHei;
+    color:rgb(255,255,255);
+    background-color: rgb(60,60,60);
+}
+QDialog#ConfigDialog QPushButton:hover {
+    background-color:rgb(120,120,120);
+}
+QDialog#ConfigDialog QPushButton:checked {
+    color:rgb(255,92,56);
+    background-color:rgb(120,120,120);
+}
+
+

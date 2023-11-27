@@ -57,6 +57,21 @@ void fillAStreamCallback(void *userdata, uint8_t *stream, int len){
                         qDebug() << "swr_convert failed";
                         return;
                     }
+                    if(thiz->m_playSpeed!=1.0){
+                        sonicSetSpeed(thiz->m_sonicStream,thiz->m_playSpeed);
+                        int ret=sonicWriteShortToStream(thiz->m_sonicStream,(short*)thiz->m_audioBuf,len2);
+                        int availSamples=sonicSamplesAvailable(thiz->m_sonicStream);
+                        if(!availSamples){
+                            thiz->m_audioBufSize=thiz->m_audioBufIndex;
+                            continue;
+                        }
+                        int numSamples=availSamples;
+                        int bytes=numSamples*thiz->m_targetChannels*av_get_bytes_per_sample(thiz->m_targetSampleFmt);
+                        if(bytes>out_size){
+                            av_fast_malloc(&thiz->m_audioBuf,&thiz->m_audioBufSize,bytes);
+                        }
+                        len2=sonicReadShortFromStream(thiz->m_sonicStream,(short*)thiz->m_audioBuf,numSamples);
+                    }
                     thiz->m_audioBufSize = av_samples_get_buffer_size(nullptr, thiz->m_targetChannels, len2, thiz->m_targetSampleFmt, 0);
                 }
                 else {
@@ -100,7 +115,7 @@ AVPlayer::AVPlayer():
     m_targetChannelLayout(0),m_targetNbSamples(0),
     m_volume(30),m_clockInitFlag(-1),m_audioIndex(-1),
     m_videoIndex(-1),m_imageWidth(300),m_imageHeight(300),
-    m_audioFrame(av_frame_alloc()),m_pause(0),m_exit(0),m_audioBuf(nullptr),m_videobuffer(nullptr),m_swrCtx(nullptr),m_swsCtx(nullptr){}
+    m_audioFrame(av_frame_alloc()),m_pause(0),m_exit(0),m_audioBuf(nullptr),m_videobuffer(nullptr),m_swrCtx(nullptr),m_swsCtx(nullptr),m_playSpeed(1.0){}
 
 int AVPlayer::Play(const QString &url){
     clearPlayer();
@@ -140,6 +155,12 @@ void AVPlayer::pause(bool isPause){
             m_pause=0;
         }
     }
+}
+
+
+MediaInfo *AVPlayer::detectMediaInfo(const QString &url)
+{
+    return m_decoder->detectMediaInfo(url);
 }
 
 void AVPlayer::clearPlayer(){
@@ -206,6 +227,8 @@ int AVPlayer::initSDL(){
     m_targetChannelLayout=av_get_default_channel_layout(m_targetChannels);
     m_targetNbSamples=m_audioCodecPar->frame_size;
     m_fmtCtx=m_decoder->formatContext();
+    m_sonicStream=sonicCreateStream(m_targetFreq,m_targetChannels);
+    sonicSetQuality(m_sonicStream,1);
     SDL_PauseAudio(0);//0表示开始播放音频
     return 1;
 }
@@ -266,7 +289,7 @@ void AVPlayer::videoCallBack(std::shared_ptr<void> par){
             if(time-m_frameTimer>AV_SYNC_THRESHOLD_MAX)
                 m_frameTimer=time;
             //队列中未显示帧一帧以上执行逻辑丢帧判断
-            if(m_decoder->getRemainingVFrame()>1){
+            if(m_playSpeed==1.0&&m_decoder->getRemainingVFrame()>1){
                 MyFrame* nextFrame=m_decoder->peekNextVFrame();
                 duration=nextFrame->pts-curFrame->pts;
                 //若主时钟超前到大于当前帧理论显示应持续的时间了，则当前帧立即丢弃

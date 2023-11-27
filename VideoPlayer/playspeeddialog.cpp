@@ -3,6 +3,7 @@
 #include <QRect>
 #include <QScrollBar>
 #include <QTimer>
+#define DEBUG
 PlaySpeedDialog::CHelper PlaySpeedDialog::m_helper;
 
 PlaySpeedDialog* PlaySpeedDialog::m_instance=nullptr;
@@ -61,13 +62,17 @@ void PlaySpeedDialog::paintEvent(QPaintEvent *e)
 
 void PlaySpeedDialog::focusInEvent(QFocusEvent *e)
 {
+#ifdef DEBUG
     qDebug()<<"focus in";
+#endif
     m_isFocusIn=true;
 }
 
 void PlaySpeedDialog::focusOutEvent(QFocusEvent *e)
 {
+#ifdef DEBUG
     qDebug()<<"focus out";
+#endif
     hide();
     QTimer::singleShot(1000,[this](){
         m_isFocusIn=false;
@@ -82,14 +87,18 @@ void PlaySpeedDialog::showEvent(QShowEvent *)
 
 void PlaySpeedDialog::enterEvent(QEvent *e)
 {
+#ifdef DEBUG
     qDebug()<<"enter event";
+#endif
     m_mouseEnter=true;
     emit mouseEnter();
 }
 
 void PlaySpeedDialog::leaveEvent(QEvent *e)
 {
+#ifdef DEBUG
     qDebug()<<"leave event";
+#endif
     m_mouseEnter=false;
     QTimer::singleShot(2000,[this](){
         if(!m_mouseEnter){
