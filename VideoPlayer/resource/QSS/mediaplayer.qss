@@ -33,23 +33,23 @@ QLabel#label_playlist {
     font-size: 18px;
 }
 
-Slider::groove:horizontal#slider_AVPts {
+QSlider::groove:horizontal#slider_AVPts {
     border:0px;
 }
 QSlider::sub-page:horizontal#slider_AVPts {
     background:rgb(255,92,56);
-    margin-top:14px;
-    margin-bottom:1px;
+    margin-top:11px;
+    margin-bottom:3px;
 }
 QSlider::add-page:horizontal#slider_AVPts {
     background:rgb(83,83,83);
-    margin-top:14px;
-    margin-bottom:1px;
+    margin-top:11px;
+    margin-bottom:3px;
 }
 
 QSlider::handle:horizontal#slider_AVPts {
-    border-radius:0px;
     border:none;
+    border-radius:0px;
     width:0px;
 }
 

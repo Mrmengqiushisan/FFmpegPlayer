@@ -4,7 +4,6 @@
 #include <QScrollBar>
 #include <QTimer>
 #define DEBUG
-PlaySpeedDialog::CHelper PlaySpeedDialog::m_helper;
 
 PlaySpeedDialog* PlaySpeedDialog::m_instance=nullptr;
 
@@ -119,7 +118,8 @@ PlaySpeedDialog::PlaySpeedDialog(QWidget *parent):QDialog(parent),m_isFocusIn(fa
 
 PlaySpeedDialog::~PlaySpeedDialog()
 {
-    if(m_instance)releaseInstance();
+    if(m_instance)
+        releaseInstance();
 }
 
 void PlaySpeedDialog::addListItem()

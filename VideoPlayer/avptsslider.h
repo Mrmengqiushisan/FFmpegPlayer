@@ -23,6 +23,7 @@ protected:
     void mousePressEvent(QMouseEvent *ev) override;
     void mouseReleaseEvent(QMouseEvent *ev) override;
     void mouseMoveEvent(QMouseEvent *ev) override;
+    void paintEvent(QPaintEvent *ev) override;
 private:
     bool is_Enter;
     double m_percent;

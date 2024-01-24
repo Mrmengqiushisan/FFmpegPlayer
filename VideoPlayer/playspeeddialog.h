@@ -53,16 +53,6 @@ private:
             qDebug()<<"playspeeddialog controler has released";
         }
     }
-    class CHelper{
-    public:
-        CHelper(){
-
-        }
-        ~CHelper(){
-            PlaySpeedDialog::releaseInstance();
-        }
-    };
-    static CHelper m_helper;
     bool            m_isFocusIn;
     bool            m_mouseEnter;
     QListWidget*    listwidget;

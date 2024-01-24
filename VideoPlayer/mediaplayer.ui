@@ -40,13 +40,13 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>70</height>
+       <height>50</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>70</height>
+       <height>50</height>
       </size>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -988,7 +988,7 @@ QPushButton:hover
                   <number>0</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>10</number>
+                  <number>0</number>
                  </property>
                  <item>
                   <spacer name="verticalSpacer_5">
@@ -1016,6 +1016,12 @@ QPushButton:hover
                      <width>16777215</width>
                      <height>18</height>
                     </size>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="pageStep">
+                    <number>1</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -1430,6 +1436,9 @@ color:rgb(255, 255, 255);
             <width>60</width>
             <height>70</height>
            </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
           </property>
           <property name="text">
            <string/>

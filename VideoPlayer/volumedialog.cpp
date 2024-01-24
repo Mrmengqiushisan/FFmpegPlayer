@@ -11,7 +11,6 @@
 
 VolumeDialog* VolumeDialog::m_instance=nullptr;
 
-VolumeDialog::CHelper VolumeDialog::m_helper;
 
 VolumeDialog::VolumeDialog(QWidget* parent):QDialog(parent),m_isFouesin(false),m_mouseEnter(false)
 {

@@ -15,7 +15,7 @@ class ConfigDialog : public QDialog
 public:
     inline bool isFocusIn(){return m_isFocusIn;}
     inline bool isEnter(){return m_mouseEnter;}
-    static inline ConfigDialog* getInstance(){
+    inline static ConfigDialog* getInstance(){
         if(m_instance==nullptr)
             m_instance=new ConfigDialog();
         return m_instance;
@@ -42,15 +42,6 @@ private:
     ~ConfigDialog();
     static void releaseInstance();
     void init();
-    class CHelper{
-    public:
-        CHelper(){
-
-        }
-        ~CHelper(){
-            releaseInstance();
-        }
-    };
 private slots:
     void playModeBtnClickedSlot(int id);
     void scaleRateBtnClickedSlot(int id);
@@ -59,7 +50,6 @@ private:
     QButtonGroup* m_playmodeBtnGroup;
     QButtonGroup* m_scaleRateBtnGroup;
     static ConfigDialog* m_instance;
-    static CHelper m_helper;
     bool m_mouseEnter;
     bool m_isFocusIn;
 };

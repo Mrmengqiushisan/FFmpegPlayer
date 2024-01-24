@@ -32,7 +32,7 @@ bool AVPtsSlider::event(QEvent *e){
                                     "margin-bottom:5px;}"
                                     "QSlider::handle:horizontal#slider_AVPts{"
                                      "background-color:rgb(255, 79, 74);"
-                                     "border-radius:6px;"
+                                     "border-radius:9px;"
                                      "border:none;"
                                      "width:18px;"
                                      "margin-top:0px;"
@@ -82,4 +82,9 @@ void AVPtsSlider::mouseMoveEvent(QMouseEvent *ev){
         setValue(x);
     }
     emit sliderMoved();
+}
+
+void AVPtsSlider::paintEvent(QPaintEvent *ev)
+{
+    return QSlider::paintEvent(ev);
 }

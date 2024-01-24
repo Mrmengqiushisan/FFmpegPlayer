@@ -21,15 +21,6 @@ private:
     ~VolumeDialog();
     static void releaseInstance();
     void init();
-    class CHelper{
-    public:
-        CHelper(){
-
-        }
-        ~CHelper(){
-            releaseInstance();
-        }
-    };
 signals:
     void volumeValueChanged(int volume_per);
     void volumeStateChaged(bool issilence);
@@ -44,7 +35,6 @@ protected:
     void leaveEvent(QEvent* e)override;
 private:
     static VolumeDialog* m_instance;
-    static CHelper m_helper;
     QLabel* showvolumelabel;
     VolumeSliderBar* m_vloumesetslider;
     bool m_isFouesin;

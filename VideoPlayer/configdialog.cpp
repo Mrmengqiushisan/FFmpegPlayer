@@ -5,7 +5,6 @@
 #include <QTimer>
 ConfigDialog* ConfigDialog::m_instance=nullptr;
 
-ConfigDialog::CHelper ConfigDialog::m_helper;
 
 void ConfigDialog::setPlayMode(int modeId)
 {
@@ -127,7 +126,7 @@ ConfigDialog::ConfigDialog(QWidget *parent) :
 ConfigDialog::~ConfigDialog()
 {
     delete ui;
-    if(m_instance!=nullptr)
+    if(m_instance)
         releaseInstance();
 }
 
