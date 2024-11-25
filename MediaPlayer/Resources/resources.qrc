@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/">
+        <file>QSS/widget.qss</file>
+        <file>Image/close_hover.png</file>
+        <file>Image/close_normal.png</file>
+        <file>Image/fullscreen_hover.png</file>
+        <file>Image/max_hover.png</file>
+        <file>Image/max_normal.png</file>
+        <file>Image/max_resume_hover.png</file>
+        <file>Image/max_resume_normal.png</file>
+        <file>Image/min_hover.png</file>
+        <file>Image/min_normal.png</file>
+        <file>Image/next_hover.png</file>
+        <file>Image/next_normal.png</file>
+        <file>Image/pause_hover.png</file>
+        <file>Image/pause_normal.png</file>
+        <file>Image/play_hover.png</file>
+        <file>Image/play_normal.png</file>
+        <file>Image/fullscreen_normal.png</file>
+        <file>Image/hideside_hover.png</file>
+        <file>Image/hideside_normal.png</file>
+        <file>Image/showside_hover.png</file>
+        <file>Image/showside_normal.png</file>
+        <file>Image/clearlist_hover.png</file>
+        <file>Image/clearlist_normal.png</file>
+        <file>Image/delete_hover.png</file>
+        <file>Image/delete_normal.png</file>
+        <file>Image/filedir_hover.png</file>
+        <file>Image/filedir_normal.png</file>
+        <file>Image/player_logo.png</file>
+        <file>Image/volume_hover.png</file>
+        <file>Image/volume_normal.png</file>
+        <file>Image/disfullscreen_hover.png</file>
+        <file>Image/disfullscreen_normal.png</file>
+        <file>Image/novolume_hover.png</file>
+        <file>Image/novolume_normal.png</file>
+        <file>Image/config_hover.png</file>
+        <file>Image/config_normal.png</file>
+        <file>Image/video_image.png</file>
+    </qresource>
+</RCC>

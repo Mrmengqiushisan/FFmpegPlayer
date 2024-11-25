@@ -1,0 +1,254 @@
+/* QLineEdit {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(23,23,27,150);
+    font-family: Microsoft YaHei;
+    font-size: 16px;
+    color:rgb(255,255,255);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 2px;
+} */
+QWidget#widget_side {
+    border:none;
+    background-color: rgb(38,38,43);
+}
+
+QLabel#label_playing,QLabel#label_playing_fullscreen,QLabel#label_current_time {
+    color:rgb(255,255,255);
+    background-color: transparent;
+    font-family: Microsoft YaHei;
+    font-size: 20px;
+}
+
+QLabel#label_logo {
+    color:rgb(255,255,255);
+    border:none;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    font-family: Microsoft YaHei;
+}
+QLabel#label_logo{
+    border-image: url(:/Image/video_image.png);
+}
+QLabel#label_pts,QLabel#label_duration,QLabel#label_seperator,QLabel#label_volume {
+    color:rgb(255,255,255);
+    background-color: transparent;
+    font-family: Microsoft YaHei;
+    font-size: 16px;
+}
+
+QLabel#label_playlist {
+    color:rgb(255,92,56);
+    background-color: transparent;
+    font-family: Microsoft YaHei;
+    font-size: 18px;
+}
+
+/*播放进度条*/
+QSlider::groove:horizontal#slider_AVPts {
+    border:0px;
+}
+QSlider::sub-page:horizontal#slider_AVPts {
+    background:rgb(255,92,56);
+    margin-top:11px;
+    margin-bottom:3px;
+}
+QSlider::add-page:horizontal#slider_AVPts {
+    background:rgb(83,83,83);
+    margin-top:11px;
+    margin-bottom:3px;
+}
+/*正常拖动把手样式*/
+QSlider::handle:horizontal#slider_AVPts {
+    border-radius:0px;
+    border:none;
+    width:0px;
+}
+
+/*音量条*/
+/* QSlider::groove:horizontal#slider_volume {
+    border:0px;
+}
+QSlider::sub-page:horizontal#slider_volume {
+    background:rgb(241,241,241);
+    margin-top:3px;
+    margin-bottom:3px;
+}
+QSlider::add-page:horizontal#slider_volume {
+    background:rgb(92,92,92);
+    margin-top:3px;
+    margin-bottom:3px;
+}
+QSlider::handle:horizontal#slider_volume {
+    background-color: rgb(255,255,255);
+    border:none;
+    width:12px;
+    border-radius:6px;
+} */
+
+/*倍速选择,逐帧播放按钮*/
+QPushButton#btn_playspeed {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    margin-bottom: 1px;
+    font-family: Microsoft YaHei;
+    color: rgb(255,255,255);
+}
+QPushButton:hover#btn_playspeed {
+    color: rgb(255,92,56);
+}
+
+QPushButton#btn_config {
+    border: none;
+    border-image: url(:/Image/config_normal.png);
+}
+QPushButton:hover#btn_config {
+    border-image: url(:/Image/config_hover.png);
+}
+
+QPushButton#btn_pauseon {
+    border: none;
+    border-image: url(:/Image/pause_normal.png);
+}
+QPushButton:hover#btn_pauseon {
+    border-image: url(:/Image/pause_hover.png);
+}
+
+QPushButton#btn_next {
+    border: none;
+    border-image: url(:/Image/next_normal.png);
+}
+QPushButton:hover#btn_next {
+    border-image: url(:/Image/next_hover.png);
+}
+
+QPushButton#btn_fullscreen {
+    border: none;
+    border-image: url(:/Image/fullscreen_normal.png);
+}
+QPushButton:hover#btn_fullscreen {
+    border-image: url(:/Image/fullscreen_hover.png);
+}
+
+QPushButton#btn_min,QPushButton#btn_min_fullscreen{
+    border: none;
+    border-image: url(:/Image/min_normal.png);
+}
+QPushButton:hover#btn_min,QPushButton:hover#btn_min_fullscreen {
+    border-image: url(:/Image/min_hover.png);
+}
+
+QPushButton#btn_max{
+    border: none;
+    border-image: url(:/Image/max_normal.png);
+}
+QPushButton:hover#btn_max {
+    border-image: url(:/Image/max_hover.png);
+}
+
+QPushButton#btn_close,QPushButton#btn_close_fullscreen {
+    border: none;
+    border-image: url(:/Image/close_normal.png);
+}
+QPushButton:hover#btn_close,QPushButton:hover#btn_close_fullscreen {
+    border-image: url(:/Image/close_hover.png);
+}
+
+QPushButton#btn_showSideWidget {
+    border: none;
+    background-color: rgb(0,0,0,100);
+    border-image: url(:/Image/showside_normal.png);
+}
+QPushButton:hover#btn_showSideWidget {
+    border-image: url(:/Image/showside_hover.png);
+}
+
+QPushButton#btn_addfile {
+    border: none;
+    border-image: url(:/Image/filedir_normal.png);
+}
+QPushButton:hover#btn_addfile {
+    border-image: url(:/Image/filedir_hover.png);
+}
+
+QPushButton#btn_clearlist {
+    border: none;
+    border-image: url(:/Image/clearlist_normal.png);
+}
+QPushButton:hover#btn_clearlist {
+    border-image: url(:/Image/clearlist_hover.png);
+}
+
+QPushButton#btn_volume {
+    border: none;
+    border-image: url(:/Image/volume_normal.png);
+}
+QPushButton:hover#btn_volume {
+    border-image: url(:/Image/volume_hover.png);
+}
+
+/*播放列表*/
+QListWidget#listwidget_playlist {
+    border:none;
+    border-top: 1px solid rgb(81,81,85) ;
+    background:transparent;
+    outline:0px;
+}
+QListWidget::Item#listwidget_playlist {
+    height: 80px;
+    margin-top: 10px;
+}
+
+QListWidget::Item:hover#listwidget_playlist {
+    background:rgb(47,47,55);
+}
+QListWidget::Item:selected#listwidget_playlist {
+    background-color:rgb(47,47,55);
+}
+
+QListWidget QScrollBar:vertical {
+    padding-right:5px;
+    width:11px;
+    background:transparent;
+    border:none;
+}
+QListWidget QScrollBar::handle:vertical {
+    background:rgb(81,81,85);border-radius:3px;
+}
+QListWidget QScrollBar::handle:vertical:hover {
+    background:rgb(255,92,56);
+}
+QListWidget QScrollBar::add-line:vertical {
+    background:none;
+}
+QListWidget QScrollBar::sub-line:vertical {
+    background:none;
+}
+QListWidget QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical {
+    background:transparent;
+}
+
+QDialog#dialog_config QLabel{
+    font-size: 15px;
+    font-family: Microsoft YaHei;
+    color:rgb(255,255,255);
+}
+
+QDialog#dialog_config QPushButton {
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    font-family: Microsoft YaHei;
+    color:rgb(255,255,255);
+    background-color: rgb(60,60,60);
+}
+QDialog#dialog_config QPushButton:hover {
+    background-color:rgb(120,120,120);
+}
+QDialog#dialog_config QPushButton:checked {
+    color:rgb(255,92,56);
+    background-color:rgb(120,120,120);
+}
